@@ -392,7 +392,6 @@ CREATE TABLE cerere_credit (
     client_id       NUMBER(13) NOT NULL,
     tip_id          NUMBER(5) NOT NULL,
     angajat_id      NUMBER(13) NOT NULL,
-    sucursala_id    NUMBER(10) NOT NULL,
     suma_solicitata NUMBER(12,2),
     data_depunere   DATE DEFAULT SYSDATE NOT NULL,
     status_cerere   VARCHAR2(20) DEFAULT 'In analiza',
@@ -406,7 +405,6 @@ CREATE TABLE cerere_credit (
     CONSTRAINT fk_cerere_client FOREIGN KEY (client_id) REFERENCES client (client_id),
     CONSTRAINT fk_cerere_tip FOREIGN KEY (tip_id) REFERENCES tip_credit (tip_id),
     CONSTRAINT fk_cerere_angajat FOREIGN KEY (angajat_id) REFERENCES angajat (angajat_id),
-    CONSTRAINT fk_cerere_sucursala FOREIGN KEY (sucursala_id) REFERENCES sucursala (sucursala_id)
 );
 CREATE TABLE contract (
     contract_id     NUMBER(13),
