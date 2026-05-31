@@ -404,7 +404,7 @@ CREATE TABLE cerere_credit (
     -- Foreign Keys
     CONSTRAINT fk_cerere_client FOREIGN KEY (client_id) REFERENCES client (client_id),
     CONSTRAINT fk_cerere_tip FOREIGN KEY (tip_id) REFERENCES tip_credit (tip_id),
-    CONSTRAINT fk_cerere_angajat FOREIGN KEY (angajat_id) REFERENCES angajat (angajat_id),
+    CONSTRAINT fk_cerere_angajat FOREIGN KEY (angajat_id) REFERENCES angajat (angajat_id)
 );
 CREATE TABLE contract (
     contract_id     NUMBER(13),
