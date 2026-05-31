@@ -878,39 +878,37 @@ WITH performanta AS (
            COUNT(ce.cerere_id)     AS nr_aprobate,
            SUM(ce.suma_solicitata) AS volum
     FROM   angajat a
-    JOIN   cerere_credit ce ON ce.angajat_id  = a.angajat_id
-                            AND ce.status_cerere = 'Aprobata'
+    JOIN   cerere_credit ce ON ce.angajat_id = a.angajat_id
+    WHERE  ce.status_cerere = 'Aprobata'
     GROUP BY a.sucursala_id
 )
 SELECT
-    LPAD(UPPER(s.nume_sucursala), 30)               AS sucursala,
+    LPAD(UPPER(s.nume_sucursala), 30)                      AS sucursala,
     s.oras,
-    TO_CHAR(SYSDATE, 'YYYY')                        AS an_curent,
+    TO_CHAR(SYSDATE, 'YYYY')                               AS an_curent,
     ROUND(MONTHS_BETWEEN(SYSDATE, MIN(ce2.data_depunere))) AS luni_activitate,
-    NVL(SUM(p.nr_aprobate), 0)                      AS total_aprobate,
-    NVL(SUM(p.volum), 0)                            AS volum_total,
+    NVL(MAX(p.nr_aprobate), 0)                             AS total_aprobate,
+    NVL(MAX(p.volum), 0)                                   AS volum_total,
     mn.medie_nationala,
-    DECODE(SIGN(NVL(SUM(p.volum), 0) - mn.medie_nationala),
+    DECODE(SIGN(NVL(MAX(p.volum), 0) - mn.medie_nationala),
            1,  'Peste medie',
            0,  'Egal',
-           -1, 'Sub medie')                         AS vs_medie,
+           -1, 'Sub medie')                                AS vs_medie,
     CASE
-        WHEN NVL(SUM(p.nr_aprobate), 0) >= 2 THEN 'Performanta buna'
-        ELSE                                        'Performanta slaba'
-    END                                             AS nivel
+        WHEN NVL(MAX(p.nr_aprobate), 0) >= 2 THEN 'Performanta buna'
+        ELSE                                       'Performanta slaba'
+    END                                                    AS nivel
 FROM sucursala s
 CROSS JOIN (
     SELECT AVG(suma_solicitata) AS medie_nationala
     FROM   cerere_credit
     WHERE  status_cerere = 'Aprobata'
 ) mn
+LEFT JOIN angajat a ON a.sucursala_id = s.sucursala_id
+LEFT JOIN cerere_credit ce2 ON ce2.angajat_id = a.angajat_id
 LEFT JOIN performanta p ON p.sucursala_id = s.sucursala_id
-LEFT JOIN cerere_credit ce2 ON ce2.sucursala_id = s.sucursala_id
 GROUP BY s.sucursala_id, s.nume_sucursala, s.oras, mn.medie_nationala
-HAVING COUNT(DISTINCT p.sucursala_id) >= (
-    SELECT COUNT(DISTINCT sucursala_id) / 2
-    FROM   angajat
-)
+HAVING NVL(MAX(p.nr_aprobate), 0) > 0
 ORDER BY volum_total DESC;
 
 ```
