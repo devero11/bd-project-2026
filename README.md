@@ -1,3 +1,6 @@
+#SISTEM DE CREDITE IPOTECARE
+
+
 # Cuprins
 
 - [1. Descrierea modelului real, a utilității acestuia și a regulilor de funcționare](#1)
