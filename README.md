@@ -608,21 +608,21 @@ INSERT INTO evaluator (evaluator_id, nume_evaluator, nr_autorizatie, specializar
 
 
 -- 7. CERERE_CREDIT  
-INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, sucursala_id, suma_solicitata, data_depunere, status_cerere) VALUES
-    (1, 1, 1, 1, 1, 280000.00, DATE '2024-01-15', 'Aprobata');
-INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, sucursala_id, suma_solicitata, data_depunere, status_cerere) VALUES
-    (2, 2, 2, 2, 2, 35000.00, DATE '2024-02-10', 'Aprobata');
-INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, sucursala_id, suma_solicitata, data_depunere, status_cerere) VALUES
-    (3, 3, 5, 3, 3, 150000.00, DATE '2024-03-05', 'Aprobata');
-INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, sucursala_id, suma_solicitata, data_depunere, status_cerere) VALUES
-    (4, 4, 3, 4, 4, 48000.00, DATE '2024-04-22', 'Respinsa');
-INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, sucursala_id, suma_solicitata, data_depunere, status_cerere) VALUES
-    (5, 5, 4, 5, 5, 500000.00, DATE '2024-05-18', 'Aprobata');
+INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, suma_solicitata, data_depunere, status_cerere) VALUES
+    (1, 1, 1, 1, 280000.00, DATE '2024-01-15', 'Aprobata');
+INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, suma_solicitata, data_depunere, status_cerere) VALUES
+    (2, 2, 2, 2, 35000.00, DATE '2024-02-10', 'Aprobata');
+INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, suma_solicitata, data_depunere, status_cerere) VALUES
+    (3, 3, 5, 3, 150000.00, DATE '2024-03-05', 'Aprobata');
+INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, suma_solicitata, data_depunere, status_cerere) VALUES
+    (4, 4, 3, 4, 48000.00, DATE '2024-04-22', 'Respinsa');
+INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, suma_solicitata, data_depunere, status_cerere) VALUES
+    (5, 5, 4, 5, 500000.00, DATE '2024-05-18', 'Aprobata');
 
 
 -- 8. CONTRACT
-INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, sucursala_id, suma_solicitata, data_depunere, status_cerere) VALUES
-    (6, 2, 4, 1, 2, 75000.00, DATE '2024-06-01', 'Aprobata');
+INSERT INTO cerere_credit (cerere_id, client_id, tip_id, angajat_id, suma_solicitata, data_depunere, status_cerere) VALUES
+    (6, 2, 4, 1, 75000.00, DATE '2024-06-01', 'Aprobata');
 
 INSERT INTO contract (contract_id, cerere_id, nr_contract, data_semnare, dobanda_finala, clauze_speciale) VALUES
     (1, 1, 'CTR-2024-000001', DATE '2024-01-25', 5.50, 'Rambursare anticipata permisa fara penalitati dupa 12 luni.');
