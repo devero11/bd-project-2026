@@ -11,10 +11,11 @@
 - [6. Realizarea diagramei entitate-relație corespunzătoare descrierii de la punctele 3-5](#6)
 - [7. Realizarea diagramei conceptuale corespunzătoare diagramei entitate-relație](#7)
 - [8. Enumerarea schemelor relaționale corespunzătoare diagramei conceptuale](#8)
-- [9. Crearea tabelelor și a secvențelor SQL](#9)
-- [10. Inserarea datelor](#10)
-- [11. Cereri SQL](#11)
-- [12. Operatii de actualizare](#12)
+- [9. Realizarea normalizarii](#85)
+- [10. Crearea tabelelor și a secvențelor SQL](#9)
+- [11. Inserarea datelor](#10)
+- [12. Cereri SQL](#11)
+- [13. Operatii de actualizare](#12)
 
 # Sistem de Credite Ipotecare
 
@@ -305,6 +306,29 @@ considerarea subentităților), dintre care cel puțin un tabel asociativ.**
     * **Graficul_de_rambursare** (PK: rata_id, FK: credit_id)
 
     * **Tip_credit** (PK: tip_id)
+
+
+<span id="85"> 
+
+9. **Realizarea normalizării până la forma normală 3 (FN1-FN3).**
+
+    * Proiectul este deja realizat conform FN3.
+
+    * Exemple non-FN:
+        1. **NON-FN1:** 
+            - Definiție: O tabelă este în prima formă normală dacă toate atributele conțin doar valori atomice și nu există grupuri repetitive sau liste de valori într-o singură celulă.
+            - Descrierea tabelului greșit : În faza inițială de proiectare, tabelul `CREDIT` ar fi putut conține o coloană numită `liste_proprietati` în care se introduceau toate proprietățile aduse ca garanție pentru acel credit, separate prin virgulă (de exemplu: "Casă Str. X, Teren Jud. Y"). Această structură încalcă FN1 deoarece valorile din câmpul respectiv nu mai sunt atomice, fiind imposibilă interogarea sau actualizarea unei singure proprietăți din listă.
+            - Soluția: Pentru a elimina această problemă și a respecta cerințele FN1, s-a separat entitatea `PROPRIETATE` în propriul ei tabel, iar legătura de tip M:M dintre un credit și proprietățile garantate a fost implementată corect prin intermediul tabelului asociativ `GARANTII`.
+
+        2. **NON-FN2:** 
+            - Definitie: O tabelă este în FN2 dacă îndeplinește condițiile FN1 și toate atributele care nu fac parte din cheia primară sunt complet dependente de întreaga cheie primară (se elimină dependențele parțiale).
+            - Descrierea tabelului greșit: Dacă în tabelul asociativ `GARANTII` s-ar fi ales ca cheie primară o cheie compusă formată din (credit_id, proprietate_id) și în acest tabel s-ar fi adăugat și coloana adresa_proprietate. Această structură ar fi încălcat FN2, deoarece `adresa_proprietate` depinde strict de `proprietate_id`, nu de întreaga cheie compusă.
+            - Solutie: Atributele ce țin strict de clădire/teren au fost izolate în tabelul `PROPRIETATE`, iar în tabelul `GARANTII` au rămas doar cheile de legătură.
+
+        3. **NON-FN3:** 
+            - Definitie: O tabelă este în FN3 dacă este în FN2 și nu conține dependențe tranzitive.
+            - Descrierea tabelului gresit: Daca tabelul `ANGAJATI` ar fi avut 2 coloane `sucursala` si `oras` ar incalca FN3 deoarece sucursala si orasul se afla intr-or relatie de dependenta
+            - Solutie: Este creat un tabel `SUCURSALA` ce va avea o coloana pentru oras.
 
 <span id="9"> 
 
